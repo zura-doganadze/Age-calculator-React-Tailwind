@@ -1,0 +1,12 @@
+#root {
+  width: 100vw;
+  height: 100vh;
+  background: rgb(196, 193, 193);
+  display: flex;
+  justify-content: center;
+}
+/* #body {
+  width: 100vw;
+  max-width: 100vh;
+  background: rgb(226, 92, 92);
+} */

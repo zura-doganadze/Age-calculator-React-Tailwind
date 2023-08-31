@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.calculator {
+  width: 65%;
+  max-height: 451px;
+  height: 100%;
+  background: #ffffff;
+  border-radius: 10px;
+  border-bottom-right-radius: 100px;
+  margin-top: 8%;
+}
+/* .calculator-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 30px auto;
+} */
+/* .input-wrappper {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+} */
+/* .input-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 110px;
+  row-gap: 5px;
+  font-size: 22px;
+  font-weight: 700;
+  font-family: sans-serif;
+  text-transform: uppercase;
+} */
+/* .input-container input {
+  height: 35px;
+} */
+
+/* .result-wrapper {
+  font-size: 48px;
+  font-weight: 800;
+  font-family: sans-serif;
+} */
