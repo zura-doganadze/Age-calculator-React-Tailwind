@@ -1,9 +1,7 @@
 // import { useState } from "react";
-import { useState, useEffect } from "react";
+import { useState} from "react";
 
 import "./App.css";
-import { data } from "autoprefixer";
-import { useForm } from "react-hook-form";
 
 function App() {
   const [birthDay, setBirthDay] = useState("");
@@ -13,6 +11,8 @@ function App() {
   const [ageYears, setAgeYears] = useState("--");
   const [ageMonths, setAgeMonths] = useState("--");
   const [ageDays, setAgeDays] = useState("--");
+
+  const [error, setError] = useState(null);
 
   const calculateAge = () => {
     const today = new Date();
@@ -24,12 +24,30 @@ function App() {
     const monthsDiff = currentMonth - birthMonth;
     const daysDiff = currentDay - birthDay;
 
+    // Display error when entering invalid age
+
+    if (!birthDay || !birthMonth || !birthYear) {
+      setError("All fields are required.");
+      return;
+    }
+    if (birthYear > currentYear) {
+      setError("Date cannot be in the future.");
+      return;
+    } else if (birthDay > 31) {
+      setError("The largest number of the month is 31");
+      return;
+    } else if (birthMonth > 12) {
+      setError("There are 12 months in a year");
+      return;
+    }
+    setError(null);
+
+    // calculate
     if (monthsDiff < 0 || (monthsDiff === 0 && daysDiff < 0)) {
       setAgeYears(yearsDiff - 1);
     } else {
       setAgeYears(yearsDiff);
     }
-
     setAgeMonths((12 + monthsDiff) % 12);
     setAgeDays((daysDiff + 30) % 30);
   };
@@ -39,13 +57,15 @@ function App() {
         <div className="flex items-center justify-center flex-col m-8 ">
           <div className="w-full flex justify-around">
             <div className="flex flex-col w-maxWidth gap-y-1 text-xl font-bold font-poppinss uppercase">
-              <label htmlFor="day ">day</label>
+              <label htmlFor="day">day</label>
               <input
                 className="h-11 w-21 border-solid rounded-md border-2	text-2xl"
                 type="number"
                 placeholder="DD"
                 id="day"
                 name="day"
+                min="1"
+                max="31"
                 value={birthDay}
                 onChange={(e) => setBirthDay(e.target.value)}
               />
@@ -58,6 +78,8 @@ function App() {
                 placeholder="MM"
                 id="month"
                 name="month"
+                min="1"
+                max="12"
                 value={birthMonth}
                 onChange={(e) => setBirthMonth(e.target.value)}
               />
@@ -75,6 +97,7 @@ function App() {
               />
             </div>
           </div>
+          {error && <div className="text-red-500 text-xl mt-5">{error}</div>}
           <div className="mt-16 w-10/12 relative">
             <div className=" border-b border-slate-400"></div>
             <button onClick={calculateAge}>
@@ -96,7 +119,6 @@ function App() {
             </div>
             <div className="result-container flex gap-x-2">
               <span className="text-purple-600">{ageDays}</span>
-
               <span>days</span>
             </div>
           </div>
